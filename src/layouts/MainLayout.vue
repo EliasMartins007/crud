@@ -11,7 +11,7 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title> CRUD USUÁRIOS </q-toolbar-title>
+        <q-toolbar-title class="text-center"> CRUD USUÁRIOS </q-toolbar-title>
       </q-toolbar>
     </q-header>
 

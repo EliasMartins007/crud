@@ -75,7 +75,7 @@ export default defineComponent({
     const fetchDogs = (page = 1) => {
       // (page = 0)
       api
-        .get('https://gorest.co.in/public/v1/users?page=1', {
+        .get('https://gorest.co.in/public/v1/users', {
           params: { page: page }
         })
         .then((response) => {
@@ -83,6 +83,7 @@ export default defineComponent({
 
           const meta = response.data.meta
           console.log(meta)
+          // pagination.value.rowsNumber = meta.total
           pagination.value.rowsNumber = meta.total
         })
         .finally(() => {
@@ -114,7 +115,7 @@ export default defineComponent({
         .then((res) => {
           // this.users = res.data // res.data
           this.users = res.data.data
-          console.log(res.data.data)
+          // console.log(res.data.data)
         })
         .catch((err) => {
           console.log(err)

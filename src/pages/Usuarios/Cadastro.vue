@@ -1,51 +1,52 @@
 <template>
   <div class="text-center">
     <h3>Cadastro de Usuário</h3>
-  </div>
-  <div class="q-pa-md">
-    <q-form @submit="Users">
-      <q-input
-        name="name"
-        v-model="Users.name"
-        color="primary"
-        label="name Required Field"
-        maxlength="191"
-        filled
-        clearable
-        :rules="[(val) => !!val || 'Field is required']"
-      />
-      <q-input
-        name="name"
-        v-model="Users.email"
-        color="primary"
-        filled
-        type="email"
-        label="email Required Field"
-        maxlength="191"
-        clearable
-        :rules="[(val) => !!val || 'Field is required']"
-      />
 
-      <q-input
-        ref="inputRef"
-        filled
-        v-model="Users.gender"
-        label="Sexo Required Field"
-        :rules="[(val) => !!val || 'Field is required']"
-      />
+    <div class="q-pa-md">
+      <q-form @submit="Users">
+        <q-input
+          name="name"
+          v-model="Users.name"
+          color="primary"
+          label="name Required Field"
+          maxlength="191"
+          filled
+          clearable
+          :rules="[(val) => !!val || 'Field is required']"
+        />
+        <q-input
+          name="name"
+          v-model="Users.email"
+          color="primary"
+          filled
+          type="email"
+          label="email Required Field"
+          maxlength="191"
+          clearable
+          :rules="[(val) => !!val || 'Field is required']"
+        />
 
-      <q-input
-        ref="inputRef"
-        filled
-        v-model="Users.status"
-        label="Status Required Field"
-        :rules="[(val) => !!val || 'Field is required']"
-      />
-      <br />
-      <div>
-        <q-btn label="Cadastrar" type="submit" color="primary" @click="cad" />
-      </div>
-    </q-form>
+        <q-input
+          ref="inputRef"
+          filled
+          v-model="Users.gender"
+          label="Sexo Required Field"
+          :rules="[(val) => !!val || 'Field is required']"
+        />
+
+        <q-input
+          ref="inputRef"
+          filled
+          v-model="Users.status"
+          label="Status Required Field"
+          :rules="[(val) => !!val || 'Field is required']"
+        />
+        <br />
+        <div>
+          <q-btn label="Cadastrar" type="submit" color="primary" @click="cad" />
+        </div>
+      </q-form>
+    </div>
   </div>
 </template>
 

@@ -18,7 +18,7 @@ import { defineComponent } from 'vue'
 import api from '../../services/api' // '../../services/api'
 
 export default defineComponent({
-  name: 'PageIndex',
+  name: 'Consulta',
   data () {
     return {
       columns: [
