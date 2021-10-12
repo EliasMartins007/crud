@@ -15,6 +15,10 @@ const routes = [
       {
         path: 'teste',
         component: () => import('pages/teste.vue')
+      },
+      {
+        path: 'Pesquisar',
+        component: () => import('pages/Usuarios/Search.vue')
       }
     ]
   },

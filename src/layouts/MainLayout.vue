@@ -40,6 +40,12 @@ import EssentialLink from 'components/EssentialLink.vue'
 
 const linksList = [
   {
+    title: 'Home usuarios',
+    caption: 'Pricipal',
+    icon: 'home', // 'school',
+    link: '/' // 'https://quasar.dev'
+  },
+  {
     title: 'consulta de usuarios',
     caption: 'Lista de usuários',
     icon: 'group', // 'school',
@@ -53,8 +59,13 @@ const linksList = [
   },
   {
     title: 'Paginação',
-    icon: 'person_add', // 'school',
+    icon: 'find_in_page', // 'school',
     link: '/teste' // 'https://quasar.dev'
+  },
+  {
+    title: 'Pesquisar',
+    icon: 'search', // 'school',
+    link: '/Pesquisar' // 'https://quasar.dev'
   }
 ]
 
