@@ -102,6 +102,7 @@ export default defineComponent({
   mounted () {
     // montar
     this.getUsers()
+    this.refresh()
   },
   // async beforeMount () {
   //   await this.getUsers()
@@ -132,18 +133,47 @@ export default defineComponent({
       // obj
       // const registro = { id: idUsuario }
       console.log(idUsuario)
-      alert(idUsuario)
+      // alert(idUsuario)
       api
         .delete(`/${idUsuario}`) // ('/', idUsuario)
         .then((res) => {
-          console.log(res)
-          alert('excluido com sucesso!')
+          // console.log(res)
+          // alert('excluido com sucesso!')
+          this.triggerPositive()
+          this.refresh()
           // api.delete(`id=${idUsuario}`).then((res) => {
           // api.delete('/', idUsuario).then((res) => {
         })
         .catch((err) => {
           alert(idUsuario)
           console.log(err)
+          this.triggerNegative()
+        })
+    },
+    triggerPositive () {
+      this.$q.notify({
+        type: 'positive',
+        position: 'top',
+        message: 'Usuário excluido com sucesso !'
+      })
+    },
+
+    triggerNegative () {
+      this.$q.notify({
+        type: 'negative',
+        position: 'top',
+        message: 'OPS Ocorreu um erro, tente novamente!'
+      })
+    },
+    refresh () {
+      api
+        .get('')
+        .then((response) => {
+          // this.data = response.data
+          this.users = response.data.data
+        })
+        .catch((error) => {
+          console.log(error)
         })
     }
   }
