@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page>
     <q-table
       v-model:pagination="pagination"
       color="secondary"
@@ -29,8 +29,9 @@ export default defineComponent({
       // sortBy: 'name',
       // descending: false,
       page: 1,
-      rowsPerPage: 15,
-      rowsNumber: 0
+      rowsPerPage: 15, // linhas por pagina
+      rowsNumber: 0,
+      limite: 1
     })
 
     const columns = [
@@ -75,7 +76,7 @@ export default defineComponent({
     const fetchDogs = (page = 1) => {
       // (page = 0)
       api
-        .get('https://gorest.co.in/public/v1/users', {
+        .get('https://gorest.co.in/public/v1/users?page=1', {
           params: { page: page }
         })
         .then((response) => {

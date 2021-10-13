@@ -3,7 +3,7 @@
     <div class="q-pa-md">
       <q-table
         :dense="$q.screen.lt.md"
-        title="Treats"
+        title="Usuário"
         :rows="users"
         :columns="columns"
         row-key="name"

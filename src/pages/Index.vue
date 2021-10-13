@@ -14,6 +14,26 @@
         ><template #loading>
           <q-inner-loading showing color="secondary" />
         </template>
+
+        <template v-slot:header="props">
+          <q-tr :props="props">
+            <q-th v-for="col in props.cols" :key="col.name" :props="props">
+              {{ col.label }}
+            </q-th>
+            <q-th auto-width />
+          </q-tr>
+        </template>
+        <template v-slot:body="props">
+          <q-tr :props="props">
+            <q-td v-for="col in props.cols" :key="col.name" :props="props">
+              {{ col.value }}
+            </q-td>
+            <q-td auto-width>
+              <q-btn round icon="edit"></q-btn>
+              <q-btn round icon="delete" @click="Remover(props.row.id)"></q-btn>
+            </q-td>
+          </q-tr>
+        </template>
       </q-table>
     </div>
   </q-page>
@@ -106,6 +126,24 @@ export default defineComponent({
         })
         .finally(() => {
           // loading.value = false
+        })
+    },
+    Remover (idUsuario) {
+      // obj
+      // const registro = { id: idUsuario }
+      console.log(idUsuario)
+      alert(idUsuario)
+      api
+        .delete(`/${idUsuario}`) // ('/', idUsuario)
+        .then((res) => {
+          console.log(res)
+          alert('excluido com sucesso!')
+          // api.delete(`id=${idUsuario}`).then((res) => {
+          // api.delete('/', idUsuario).then((res) => {
+        })
+        .catch((err) => {
+          alert(idUsuario)
+          console.log(err)
         })
     }
   }

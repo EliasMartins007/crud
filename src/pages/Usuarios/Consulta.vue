@@ -73,7 +73,7 @@ export default defineComponent({
   methods: {
     getUsers () {
       api
-        .get('/') // https://gorest.co.in/public/v1/users?page=3
+        .get('') // https://gorest.co.in/public/v1/users?page=3
         .then((res) => {
           // this.users = res.data // res.data
           this.users = res.data.data
