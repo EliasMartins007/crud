@@ -1,50 +1,54 @@
 <template>
-  <q-page>
-    <div class="q-pa-md">
-      <q-table
-        :dense="$q.screen.lt.md"
-        title="Treats"
-        :rows="users"
-        :columns="columns"
-        row-key="name"
-        class="col"
-        :loading="loading"
-        separator="cell"
-        v-model:pagination="initialPagination"
-        ><template #loading>
-          <q-inner-loading showing color="secondary" />
-        </template>
+  <div class="q-pa-md">
+    <q-table
+      v-if="usuarioEdicao == null"
+      :dense="$q.screen.lt.md"
+      title="Usuários"
+      :rows="users"
+      :columns="columns"
+      row-key="name"
+      class="col"
+      :loading="loading"
+      separator="cell"
+      v-model:pagination="initialPagination"
+      ><template #loading>
+        <q-inner-loading showing color="secondary" />
+      </template>
 
-        <template v-slot:header="props">
-          <q-tr :props="props">
-            <q-th v-for="col in props.cols" :key="col.name" :props="props">
-              {{ col.label }}
-            </q-th>
-            <q-th auto-width />
-          </q-tr>
-        </template>
-        <template v-slot:body="props">
-          <q-tr :props="props">
-            <q-td v-for="col in props.cols" :key="col.name" :props="props">
-              {{ col.value }}
-            </q-td>
-            <q-td auto-width>
-              <q-btn round icon="edit"></q-btn>
-              <q-btn round icon="delete" @click="Remover(props.row.id)"></q-btn>
-            </q-td>
-          </q-tr>
-        </template>
-      </q-table>
-    </div>
-  </q-page>
+      <template v-slot:header="props">
+        <q-tr :props="props">
+          <q-th v-for="col in props.cols" :key="col.name" :props="props">
+            {{ col.label }}
+          </q-th>
+          <q-th auto-width />
+        </q-tr>
+      </template>
+      <template v-slot:body="props">
+        <q-tr :props="props">
+          <q-td v-for="col in props.cols" :key="col.name" :props="props">
+            {{ col.value }}
+          </q-td>
+          <q-td auto-width>
+            <q-btn round icon="edit" @click="Editar(props.row.id)"></q-btn>
+            <q-btn round icon="delete" @click="Remover(props.row.id)"></q-btn>
+          </q-td>
+        </q-tr>
+      </template>
+    </q-table>
+    <Editar v-if="usuarioEdicao != null" :Users="usuarioEdicao"></Editar>
+  </div>
 </template>
 
 <script>
 import { defineComponent, ref } from 'vue'
 import api from '../services/api' // '../../services/api'
+// eslint-disable-next-line no-unused-vars
+// import Editar from './Editar'
+import Editar from './Usuarios/Editar'
 
 export default defineComponent({
   name: 'PageIndex',
+  components: { Editar }, // as chaves fizeram toda diferença 13/10
   data () {
     // teste 12/10
     const loading = ref(false)
@@ -59,6 +63,7 @@ export default defineComponent({
         },
         {
           name: 'name',
+          required: true,
           label: 'nome',
           field: 'name',
           align: 'left',
@@ -66,6 +71,7 @@ export default defineComponent({
         },
         {
           name: 'email',
+          required: true,
           label: 'email',
           field: 'email',
           align: 'left',
@@ -73,6 +79,7 @@ export default defineComponent({
         },
         {
           name: 'gender',
+          required: true,
           label: 'sexo',
           field: 'gender',
           align: 'left',
@@ -80,6 +87,7 @@ export default defineComponent({
         },
         {
           name: 'status',
+          required: true,
           label: 'status',
           field: 'status',
           align: 'left',
@@ -93,6 +101,8 @@ export default defineComponent({
         rowsPerPage: 4
         // rowsNumber: xx if getting data from a server
       },
+      // data: [], // 13/10/2021
+      usuarioEdicao: null, // 13/10/2021
 
       // users: []// original
       users: [],
@@ -132,7 +142,7 @@ export default defineComponent({
     Remover (idUsuario) {
       // obj
       // const registro = { id: idUsuario }
-      console.log(idUsuario)
+      // console.log(idUsuario)
       // alert(idUsuario)
       api
         .delete(`/${idUsuario}`) // ('/', idUsuario)
@@ -141,8 +151,6 @@ export default defineComponent({
           // alert('excluido com sucesso!')
           this.triggerPositive()
           this.refresh()
-          // api.delete(`id=${idUsuario}`).then((res) => {
-          // api.delete('/', idUsuario).then((res) => {
         })
         .catch((err) => {
           alert(idUsuario)
@@ -175,6 +183,10 @@ export default defineComponent({
         .catch((error) => {
           console.log(error)
         })
+    },
+    Editar (usuario) {
+      alert(usuario)
+      this.usuarioEdicao = usuario
     }
   }
 })

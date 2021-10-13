@@ -19,6 +19,7 @@ import api from '../../services/api' // '../../services/api'
 
 export default defineComponent({
   name: 'Consulta',
+
   data () {
     return {
       columns: [

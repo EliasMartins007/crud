@@ -28,10 +28,11 @@ export default defineComponent({
     const pagination = ref({
       // sortBy: 'name',
       // descending: false,
+      users: [],
       page: 1,
-      rowsPerPage: 15, // linhas por pagina
-      rowsNumber: 0,
-      limite: 1
+      rowsPerPage: 20, // linhas por pagina
+      rowsNumber: 500,
+      total: 1
     })
 
     const columns = [
@@ -73,20 +74,31 @@ export default defineComponent({
     ]
     // users: []// original
     // eslint-disable-next-line no-unused-vars
-    const fetchDogs = (page = 1) => {
+    const fetchDogs = (page = 20) => {
+      const BASE_URL = 'https://gorest.co.in/public'
+      const url = `${BASE_URL}/v1/users?page=${page}`
       // (page = 0)
       api
-        .get('https://gorest.co.in/public/v1/users?page=1', {
-          params: { page: page }
+        //  .get('https://gorest.co.in/public/v1/users?page=1', {
+        // .get('https://gorest.co.in/public/v1/users?page=', {
+        //   params: { page: page }
+        // })
+        .get(url)
+        .then(({ data }) => {
+          // this.data = data
+          this.users = data.data
+          this.total = data.total
+          // pagination.value.rowsNumber = data.page// menu de >>
         })
-        .then((response) => {
+        // fim
+        /* .then((response) => {
           users.value = response.data.data
 
           const meta = response.data.meta
           console.log(meta)
           // pagination.value.rowsNumber = meta.total
           pagination.value.rowsNumber = meta.total
-        })
+        }) */
         .finally(() => {
           loading.value = false
         })
@@ -106,13 +118,13 @@ export default defineComponent({
   //   this.getUsers()
   // },
   async beforeMount () {
-    await this.getUsers()
+    // await this.getUsers()
   },
   // fim teste
   methods: {
     getUsers () {
       api
-        .get('?name=maria') // https://gorest.co.in/public/v1/users?page=3
+        .get('') // https://gorest.co.in/public/v1/users?page=3
         .then((res) => {
           // this.users = res.data // res.data
           this.users = res.data.data
