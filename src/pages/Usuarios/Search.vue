@@ -46,18 +46,15 @@
           <q-icon name="male" />
         </template>
       </q-input>
-      <q-input
+
+      <q-select
         outlined
-        v-model="Users.status"
-        color="deep-purple"
-        label="status"
         class="col-md-12 col-sm-12 col-xs-12"
+        v-model="Users.status"
+        :options="optionsStatus"
+        label="Status"
         :rules="[(val) => (val && val.lenth > 0) || ' status obrigatorio']"
-      >
-        <template v-slot:prepend>
-          <q-icon name="circle" />
-        </template>
-      </q-input>
+      />
       <div class="col-12">
         <q-btn
           label="Cadastrar"
@@ -83,7 +80,8 @@ export default defineComponent({
         email: '',
         gender: '',
         status: ''
-      }
+      },
+      optionsStatus: ['active', 'inactive']
     }
   },
   // mounted () {
@@ -98,10 +96,7 @@ export default defineComponent({
     onSubmit () {
       this.triggerPositive()
     },
-    async onReset () {
-      await this.resetForm()
-      this.$refs.myForm.resetValidation()
-    },
+
     async cadastrar () {
       await api
         .post('', this.Users)
@@ -129,6 +124,10 @@ export default defineComponent({
         position: 'top',
         message: 'OPS Ocorreu um erro, tente novamente!'
       })
+    },
+    async onReset () {
+      await this.resetForm()
+      this.$refs.myForm.resetValidation()
     },
     async resetForm () {
       this.form = { name: '', email: '', gender: '', status: '' }
