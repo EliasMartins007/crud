@@ -48,11 +48,38 @@ export default {
   methods: {
     editarUsuario () {
       // console.log(idUsuario)
-      alert('oi')
       api
         .put(`/${this.Users}`)
         .then((response) => {
           console.log(response.data)
+          this.triggerPositive()
+        })
+        .catch((error) => {
+          console.log(error)
+          this.triggerNegative()
+        })
+    },
+    triggerPositive () {
+      this.$q.notify({
+        type: 'positive',
+        position: 'top',
+        message: 'Usuário Atualizado com sucesso !'
+      })
+    },
+
+    triggerNegative () {
+      this.$q.notify({
+        type: 'negative',
+        position: 'top',
+        message: 'OPS Ocorreu um erro, tente novamente!'
+      })
+    },
+    refresh () {
+      api
+        .get('')
+        .then((response) => {
+          // this.data = response.data
+          this.users = response.data.data
         })
         .catch((error) => {
           console.log(error)
@@ -63,7 +90,7 @@ export default {
     Users: {
       // type: Object,
       // required: true
-      id: 0,
+      id: '',
       name: '',
       email: '',
       status: ''

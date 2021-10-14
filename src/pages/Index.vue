@@ -109,10 +109,10 @@ export default defineComponent({
       loading
     }
   },
-  mounted () {
+  async mounted () {
     // montar
-    this.getUsers()
-    this.refresh()
+    await this.getUsers()
+    await this.refresh()
   },
   // async beforeMount () {
   //   await this.getUsers()
@@ -139,24 +139,26 @@ export default defineComponent({
           // loading.value = false
         })
     },
-    Remover (idUsuario) {
+    async Remover (idUsuario) {
+      if (confirm('Deseja excluir o registro?')) {
+        await api
+          .delete(`/${idUsuario}`) // ('/', idUsuario)
+          .then((res) => {
+            // console.log(res)
+            // alert('excluido com sucesso!')
+            this.triggerPositive()
+            this.refresh()
+          })
+          .catch((err) => {
+            alert(idUsuario)
+            console.log(err)
+            this.triggerNegative()
+          })
+      }
       // obj
       // const registro = { id: idUsuario }
       // console.log(idUsuario)
       // alert(idUsuario)
-      api
-        .delete(`/${idUsuario}`) // ('/', idUsuario)
-        .then((res) => {
-          // console.log(res)
-          // alert('excluido com sucesso!')
-          this.triggerPositive()
-          this.refresh()
-        })
-        .catch((err) => {
-          alert(idUsuario)
-          console.log(err)
-          this.triggerNegative()
-        })
     },
     triggerPositive () {
       this.$q.notify({
@@ -185,8 +187,9 @@ export default defineComponent({
         })
     },
     Editar (usuario) {
-      alert(usuario)
+      // alert(usuario)
       this.usuarioEdicao = usuario
+      // this.refresh()
     }
   }
 })
