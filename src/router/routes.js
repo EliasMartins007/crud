@@ -10,7 +10,7 @@ const routes = [
       },
       {
         path: 'Cadastro',
-        component: () => import('pages/Usuarios/Cadastro.vue')
+        component: () => import('pages/Usuarios/Search.vue')
       },
       {
         path: 'teste',
@@ -18,7 +18,7 @@ const routes = [
       },
       {
         path: 'Pesquisar',
-        component: () => import('pages/Usuarios/Search.vue')
+        component: () => import('pages/Usuarios/Cadastro.vue')
       }
     ]
   },

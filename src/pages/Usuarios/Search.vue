@@ -1,6 +1,6 @@
 <template>
   <q-page class="container" padding>
-    <p class="text-h4">Formulario</p>
+    <p class="text-h4">Cadastro de Usuário</p>
     <q-form
       @submit="onSubmit"
       @reset="onReset"
@@ -58,7 +58,7 @@
           <q-icon name="circle" />
         </template>
       </q-input>
-      <div>
+      <div class="col-12">
         <q-btn
           label="Cadastrar"
           type="submit"
@@ -91,18 +91,24 @@ export default defineComponent({
   //   this.getUsers()
   // },
   async beforeMount () {
-    // await this.getUsers()
+    //
   },
   // fim teste
   methods: {
-    onSubmit () {},
-    onReset () {},
+    onSubmit () {
+      this.triggerPositive()
+    },
+    async onReset () {
+      await this.resetForm()
+      this.$refs.myForm.resetValidation()
+    },
     async cadastrar () {
       await api
         .post('', this.Users)
         .then((resposta) => {
           this.triggerPositive()
-          console.log(resposta.data)
+          // console.log(resposta.data)
+          this.onReset()
         })
         .catch((erro) => {
           this.triggerNegative()
@@ -112,6 +118,7 @@ export default defineComponent({
       this.$q.notify({
         type: 'positive',
         position: 'top',
+        icon: 'check_circle_outline',
         message: 'Usuário cadastrado com sucesso !'
       })
     },
@@ -122,6 +129,9 @@ export default defineComponent({
         position: 'top',
         message: 'OPS Ocorreu um erro, tente novamente!'
       })
+    },
+    async resetForm () {
+      this.form = { name: '', email: '', gender: '', status: '' }
     }
   }
 })
