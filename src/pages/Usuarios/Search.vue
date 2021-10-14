@@ -34,18 +34,15 @@
           <q-icon name="email" />
         </template>
       </q-input>
-      <q-input
-        outlined
-        v-model="Users.gender"
-        color="deep-purple"
-        label="sexo"
-        class="col-md-12 col-sm-12 col-xs-12"
-        :rules="[(val) => (val && val.lenth > 0) || 'sexo obrigatorio']"
-      >
-        <template v-slot:prepend>
-          <q-icon name="male" />
-        </template>
-      </q-input>
+
+        <q-select
+          outlined
+          class="col-md-12 col-sm-12 col-xs-12"
+          v-model="Users.gender"
+          :options="optionsGender"
+          label="sexo"
+          :rules="[(val) => (val && val.lenth > 0) || 'sexo obrigatorio']"
+        />
 
       <q-select
         outlined
@@ -81,6 +78,7 @@ export default defineComponent({
         gender: '',
         status: ''
       },
+      optionsGender: ['male', 'female'],
       optionsStatus: ['active', 'inactive']
     }
   },
