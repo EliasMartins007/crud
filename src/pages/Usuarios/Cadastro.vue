@@ -58,7 +58,12 @@
 <script>
 import api from '../../services/api'
 export default {
-  data () {
+  // data () {
+  //   return {
+  //     Users: { name: '', email: '', gender: '', status: '' }
+  //   }
+  // },
+  data: () => {
     return {
       Users: { name: '', email: '', gender: '', status: '' }
     }
